@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import he from 'he'
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 // import {QuestionDisplay} from './components/QuestionDisplay'
 // import {QuestionAnswers} from './components/QuestionAnswers'
 import {Button} from './components/Button'
+import {Question} from './components/QuestionDisplay'
+import {Answers} from './components/QuestionAnswers'
 
 class App extends Component {
 constructor(props) {
@@ -22,10 +25,10 @@ getQuestions() {
   axios.get("https://opentdb.com/api.php?amount=1")
     .then(response => {
       let newArr = [response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]
-      const answerArr = (newArr).sort(() => (Math.random() - 0.5))
+      const answerArr = ([response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]).sort(() => (Math.random() - 0.5))
 
       this.setState({
-        currentQuestion:response.data.results[0].question,
+        currentQuestion:he.decode(response.data.results[0].question),
         answers:answerArr,
         rightAnswer: response.data.results[0].correct_answer
 
@@ -42,7 +45,9 @@ getQuestions() {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-      <Button onClick={this.getQuestions} name='Get Questions'/>
+        <Question display={this.state.currentQuestion}/>
+        <Answers items={this.state.answers}/>
+        <Button onClick={this.getQuestions} name='Get Questions'/>
       </div>
     );
   }
