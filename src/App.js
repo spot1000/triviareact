@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// import { Provider } from 'react-redux'
+// import { createStore } from 'redux'
 import he from 'he'
 import logo from './logo.svg';
 import './App.css';
@@ -8,17 +10,18 @@ import axios from 'axios'
 import {Button} from './components/Button'
 import {Question} from './components/QuestionDisplay'
 import {Answers} from './components/QuestionAnswers'
-
+let correct = 0
 class App extends Component {
 constructor(props) {
   super(props),
   this.state = {
-    correct: 0,
+
     currentQuestion: '',
     rightAnswer: '',
     answers: []
   }
   this.getQuestions = this.getQuestions.bind(this)
+  this.handleClick = this.handleClick.bind(this)
 }
 
 getQuestions() {
@@ -38,6 +41,18 @@ getQuestions() {
     })
 }
 
+handleClick(answer) {
+  console.log('test!')
+  if (answer === this.state.rightAnswer) {
+    this.setState({correct: true})
+
+
+  } else {
+    this.setState({correct: false})
+
+  }
+}
+
   render() {
     return (
       <div className="App">
@@ -46,7 +61,7 @@ getQuestions() {
           <h2>Welcome to React</h2>
         </div>
         <Question display={this.state.currentQuestion}/>
-        <Answers items={this.state.answers}/>
+        <Answers items={this.state.answers} checkAns={this.handleClick}/>
         <Button onClick={this.getQuestions} name='Get Questions'/>
       </div>
     );

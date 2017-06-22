@@ -1,22 +1,23 @@
-let nextTodoId = 0
-export const addTodo = text => {
+let correct = 0
+let currentQuestion = {}
+export const gotRight = () => {
   return {
-    type: 'ADD_TODO',
-    id: nextTodoId++,
-    text
+    type: 'GOT_RIGHT',
+    correct: correct++
   }
 }
 
-export const setVisabilityFilter = filter => {
-  return {
-    type: 'SET_VISABILITY_FILTER',
-    filter
-  }
+export const getNewQuestions = () => {
+
+  axios.get("https://opentdb.com/api.php?amount=1")
+    .then(response => {
+      return {
+        currentQuestion : response.data.results[0]
+      }
+      })
+    })
 }
 
-export const toggleTodo = id => {
-  return {
-    type: 'TOGGLE_TODO',
-    id
-  }
-}
+// export const displayQuestion = () => {
+//   return
+// }
