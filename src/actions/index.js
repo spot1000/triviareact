@@ -1,11 +1,21 @@
 let correct = 0
+let streak = 0
 let currentQuestion = {}
-export const gotRight = () => {
+export const gotRight = (correct, streak) => {
   return {
     type: 'GOT_RIGHT',
     correct: correct++
+    streak: streak++
   }
 }
+
+export const gotWrong = () => {
+  return {
+    type:'GOT_WRONG'
+
+  }
+}
+
 
 export const getNewQuestions = () => {
 
