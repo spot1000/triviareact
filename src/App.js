@@ -13,9 +13,11 @@ import {Answers} from './components/QuestionAnswers'
 let correct = 0
 class App extends Component {
 constructor(props) {
+  let correct = 0
   super(props),
   this.state = {
-
+    correct:0,
+    streak:0,
     currentQuestion: '',
     rightAnswer: '',
     answers: []
@@ -27,7 +29,7 @@ constructor(props) {
 getQuestions() {
   axios.get("https://opentdb.com/api.php?amount=1")
     .then(response => {
-      let newArr = [response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]
+      // let newArr = [response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]
       const answerArr = ([response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]).sort(() => (Math.random() - 0.5))
 
       this.setState({
@@ -44,11 +46,14 @@ getQuestions() {
 handleClick(answer) {
   console.log('test!')
   if (answer === this.state.rightAnswer) {
-    this.setState({correct: true})
+    correct++
+    this.setState({correct: this.state.correct+1, streak: this.state.streak + 1})
+    this.getQuestions()
 
 
   } else {
-    this.setState({correct: false})
+    this.setState({streak: 0})
+    this.getQuestions()
 
   }
 }
