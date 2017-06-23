@@ -12,35 +12,35 @@ import {Question} from './components/QuestionDisplay'
 import {Answers} from './components/QuestionAnswers'
 let correct = 0
 class App extends Component {
-constructor(props) {
-  let correct = 0
-  super(props),
-  this.state = {
-    correct:0,
-    streak:0,
-    currentQuestion: '',
-    rightAnswer: '',
-    answers: []
-  }
-  this.getQuestions = this.getQuestions.bind(this)
-  this.handleClick = this.handleClick.bind(this)
-}
-
-getQuestions() {
-  axios.get("https://opentdb.com/api.php?amount=1")
-    .then(response => {
-      // let newArr = [response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]
-      const answerArr = ([response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]).sort(() => (Math.random() - 0.5))
-
-      this.setState({
-        currentQuestion:he.decode(response.data.results[0].question),
-        answers:answerArr,
-        rightAnswer: response.data.results[0].correct_answer
-
-      })
-      console.log(response.data.results[0])
-      console.log(this.state)
-    })
+// constructor(props) {
+//   let correct = 0
+//   super(props),
+//   this.state = {
+//     correct:0,
+//     streak:0,
+//     currentQuestion: '',
+//     rightAnswer: '',
+//     answers: []
+//   }
+//   this.getQuestions = this.getQuestions.bind(this)
+//   this.handleClick = this.handleClick.bind(this)
+// }
+//
+// getQuestions() {
+//   axios.get("https://opentdb.com/api.php?amount=1")
+//     .then(response => {
+//       // let newArr = [response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]
+//       const answerArr = ([response.data.results[0].correct_answer, ...response.data.results[0].incorrect_answers]).sort(() => (Math.random() - 0.5))
+//
+//       this.setState({
+//         currentQuestion:he.decode(response.data.results[0].question),
+//         answers:answerArr,
+//         rightAnswer: response.data.results[0].correct_answer
+//
+//       })
+//       console.log(response.data.results[0])
+//       console.log(this.state)
+//     })
 }
 
 handleClick(answer) {

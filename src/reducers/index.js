@@ -3,8 +3,7 @@ import todos from './todos'
 import visabilityFilter from './visabilityFilter'
 
 const todoApp = combineReducers({
-  todos,
-  visabilityFilter
+  getQuestion
 })
 
-export default todoApp
+export default triviaApp
