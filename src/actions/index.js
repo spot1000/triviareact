@@ -33,7 +33,7 @@ export const rightAnswer = (rightAnswer) => {
 export const getQuestion = () => {
   axios.get("https://opentdb.com/api.php?amount=1")
     .then((response) => dispatch({
-      (response.data.results[0].correct_ans) => dispatch(rightAnswer(response.data.results[0].correct_answer)) 
+      (response.data.results[0].correct_ans) => dispatch(rightAnswer(response.data.results[0].correct_answer))
 
     })
 }
