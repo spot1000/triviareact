@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const gotRight = (correct, streak) => {
+export const gotRight = (correct) => {
   return {
     type: 'GOT_RIGHT',
     correct: correct + 1,
@@ -17,7 +17,7 @@ export const gotWrong = () => {
 
 export const question = (question) => {
   type: 'NEW_QUESION',
-  question
+  question: he.decode(question)
 }
 
 export const answers = (answers, rightAnswer) => {
@@ -30,12 +30,15 @@ export const rightAnswer = (rightAnswer) => {
   rightAnswer: rightAnswer
 }
 
-export const getQuestion = () => {
-  axios.get("https://opentdb.com/api.php?amount=1")
-    .then((response) => dispatch({
-      (response.data.results[0].correct_ans) => dispatch(rightAnswer(response.data.results[0].correct_answer)) 
+export const getQuestion = (url) => {
+  return (dispatch) => {
+    axios.get(url)
+      .then((response) => dispatch({
+        dispatch(question(response.data.results[0].question))
+        dispatch(rightAnswer(response.data.results[0].correct_answer))
+        dispatch(answers(response.data.results[0].incorrect_answers, response.data.results[0].correct_answer))
 
-    })
+    })}
 }
 
 

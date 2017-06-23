@@ -1,13 +1,15 @@
 
 
-const getQuestion = (state = {}, action) => {
+const getQuestion = (state = '', action) => {
   switch (action.type) {
-    case "GET_QUESTION" :
-      return action.data
+    case "NEW_QUESTION" :
+      return action.question
     default:
       return state
   }
 }
+
+export function gotRight (state = )
 
 // const todos = (state = [], action) => {
 //   switch (action.type) {
