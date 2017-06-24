@@ -1,47 +1,28 @@
-import axios from 'axios';
-
-export const gotRight = (correct) => {
+export function newQuestion(text) {
   return {
-    type: 'GOT_RIGHT',
-    correct: correct + 1,
-    streak: streak + 1
+    type: 'NEW_QUESTION',
+    payload: text
   }
 }
 
-export const gotWrong = () => {
+export default function newAnswer(text) {
   return {
-    type:'GOT_WRONG',
-    streak: 0
+    type: 'NEW_ANSWER',
+    payload: text
   }
 }
 
-export const question = (question) => {
-  type: 'NEW_QUESION',
-  question: he.decode(question)
+export function newWrongAnswers(array) {
+  return {
+    type: 'NEW_WRONG_ANSWERS',
+    payload: array
+  }
 }
 
-export const answers = (answers, rightAnswer) => {
-  type: 'GET_ANSWERS',
-  answers: ([rightAnswer, ...answers]).sort(() => (Math.random() - 0.5))
+export function allAnswers(array, text) {
+  let allAnswerArr = ([text, ...array]).sort(() => (Math.random() - 0.5))
+  return {
+    type: "ALL_ANSWERS",
+    payload: allAnswerArr
+  }
 }
-
-export const rightAnswer = (rightAnswer) => {
-  type: 'GET_RIGHT_ANSWER'
-  rightAnswer: rightAnswer
-}
-
-export const getQuestion = (url) => {
-  return (dispatch) => {
-    axios.get(url)
-      .then((response) => dispatch({
-        dispatch(question(response.data.results[0].question))
-        dispatch(rightAnswer(response.data.results[0].correct_answer))
-        dispatch(answers(response.data.results[0].incorrect_answers, response.data.results[0].correct_answer))
-
-    })}
-}
-
-
-// export const displayQuestion = () => {
-//   return
-// }

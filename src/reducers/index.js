@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import todos from './todos'
-import visabilityFilter from './visabilityFilter'
 
-const todoApp = combineReducers({
-  getQuestion
+import getQuestions from './questionReducer'
+import isCorrect from './correctReducer'
+
+export default combineReducers({
+  getQuestions,
+  isCorrect
 })
-
-export default triviaApp

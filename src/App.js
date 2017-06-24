@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 // import { Provider } from 'react-redux'
 // import { createStore } from 'redux'
+import newAnswer from './actions/index'
 import he from 'he'
 import logo from './logo.svg';
 import './App.css';
@@ -41,22 +43,22 @@ class App extends Component {
 //       console.log(response.data.results[0])
 //       console.log(this.state)
 //     })
-}
-
-handleClick(answer) {
-  console.log('test!')
-  if (answer === this.state.rightAnswer) {
-    correct++
-    this.setState({correct: this.state.correct+1, streak: this.state.streak + 1})
-    this.getQuestions()
-
-
-  } else {
-    this.setState({streak: 0})
-    this.getQuestions()
-
-  }
-}
+// }
+//
+// handleClick(answer) {
+//   console.log('test!')
+//   if (answer === this.state.rightAnswer) {
+//     correct++
+//     this.setState({correct: this.state.correct+1, streak: this.state.streak + 1})
+//     this.getQuestions()
+//
+//
+//   } else {
+//     this.setState({streak: 0})
+//     this.getQuestions()
+//
+//   }
+// }
 
   render() {
     return (
@@ -65,12 +67,23 @@ handleClick(answer) {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <Question display={this.state.currentQuestion}/>
-        <Answers items={this.state.answers} checkAns={this.handleClick}/>
-        <Button onClick={this.getQuestions} name='Get Questions'/>
+        {/* <Question display={this.state.currentQuestion}/>
+        <Answers items={this.state.answers} checkAns={this.handleClick}/> */}
+        <Button onClick={() => {this.props.dispatch(newAnswer("test"))}} name='Get Questions'/>
       </div>
     );
   }
 }
 
-export default App;
+function mapState (state) {
+  return {state}
+}
+
+// function mapDispatchToProps = (dispatch) => {
+//   return {
+//     isCorrect
+//   }
+// }
+
+
+export default connect(mapState)(App);
