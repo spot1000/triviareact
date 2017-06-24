@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export default function reducer(state={
     newQuestion: '',
     newAnswer : '',
@@ -24,3 +25,15 @@ export default function reducer(state={
 
   }
 }
+=======
+import { combineReducers } from 'redux'
+import { newQuestion, newAnswers, newRightAnswer} from './allReducers'
+
+const questionAnswer combineReducers({
+  newQuestion,
+  newAnswers,
+  newRightAnswer
+})
+
+export default questionAnswer
+>>>>>>> a1cb5bdcb5ec1a92ede51fcbda98477451968a59
