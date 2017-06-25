@@ -5,7 +5,7 @@ export default function reducer(state={
 
   switch (action.type) {
     case "IS_CORRECT": {
-      return {correct: 1, streak: 1}
+      return {correct: state.correct + 1, streak: state.streak + 1}
     }
     case 'IS_WRONG': {
       return { ...state, streak: 0}

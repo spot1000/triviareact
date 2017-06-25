@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 // import { Provider } from 'react-redux'
 // import { createStore } from 'redux'
-import newAnswer from './actions/index'
+
 import he from 'he'
 import logo from './logo.svg';
 import './App.css';
@@ -12,9 +12,10 @@ import axios from 'axios'
 import {Button} from './components/Button'
 import {Question} from './components/QuestionDisplay'
 import {Answers} from './components/QuestionAnswers'
+import getNewQuestion from './actions/index'
 let correct = 0
 class App extends Component {
-// constructor(props) {
+
 //   let correct = 0
 //   super(props),
 //   this.state = {
@@ -45,20 +46,10 @@ class App extends Component {
 //     })
 // }
 //
-// handleClick(answer) {
-//   console.log('test!')
-//   if (answer === this.state.rightAnswer) {
-//     correct++
-//     this.setState({correct: this.state.correct+1, streak: this.state.streak + 1})
-//     this.getQuestions()
-//
-//
-//   } else {
-//     this.setState({streak: 0})
-//     this.getQuestions()
-//
-//   }
-// }
+handleClick(answer) {
+  console.log('test!')
+
+}
 
   render() {
     return (
@@ -67,23 +58,27 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        {/* <Question display={this.state.currentQuestion}/>
-        <Answers items={this.state.answers} checkAns={this.handleClick}/> */}
-        <Button onClick={() => {this.props.dispatch(newAnswer("test"))}} name='Get Questions'/>
+        <Question display={this.props.initialState.getQuestions.newQuestion}/>
+        <Answers items={this.props.initialState.getQuestions.allAnswers} checkAns={this.handleClick}/>
+        <Button onClick={() => {this.props.fetchData('https://opentdb.com/api.php?amount=1')}} name='Get Questions'/>
+        <p>{this.props.initialState.isCorrect.correct}</p>
+        <p>{this.props.initialState.isCorrect.streak}</p>
       </div>
     );
   }
 }
 
 function mapState (state) {
-  return {state}
+  return {initialState:state}
 }
 
-// function mapDispatchToProps = (dispatch) => {
-//   return {
-//     isCorrect
-//   }
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: (url) => dispatch(getNewQuestion(url))
+  }
+}
 
 
-export default connect(mapState)(App);
+
+
+export default connect(mapState, mapDispatchToProps)(App);
